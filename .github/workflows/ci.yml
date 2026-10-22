@@ -9,9 +9,19 @@ jobs:
   sdk:
     runs-on: ubuntu-22.04
     timeout-minutes: 10
+    defaults:
+      run:
+        working-directory: PluHub-SDK-Go
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
+          persist-credentials: false
+          path: PluHub-SDK-Go
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          repository: MoeClub-Open/PluHub-Spec
+          ref: d4accdd39c9ab2a98c9b529bac84a3208ba67469
+          path: PluHub-Spec
           persist-credentials: false
       - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
         with:
