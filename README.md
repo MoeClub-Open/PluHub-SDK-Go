@@ -16,3 +16,5 @@ Handler 通过 `RequestConfig(ctx)` 获取当前调用的配置快照，返回�
 共享样例来自同级 PluHub-Spec/fixtures。Linux CI 执行 go vet 和竞态检测。
 
 许可证：Apache-2.0。
+
+宿主 `0.1.0-alpha.15` 起，`Host.Providers(ctx, capability)` 返回请求快照内可用提供商的 ID、名称及版本；`Host.CallProvider(ctx, capability, providerID, input, result)` 显式选择实现。两者仍要求 Manifest 声明能力依赖，并保留请求上下文和取消信号。

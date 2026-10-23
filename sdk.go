@@ -106,6 +106,23 @@ func (h *Host) send(v envelope) error {
 func (h *Host) Call(ctx context.Context, capability string, input any, result any) error {
 	return h.request(ctx, "host.call", map[string]any{"capability": capability, "input": input, "contextId": invocationID(ctx)}, result)
 }
+
+type CapabilityProvider struct {
+	ID      string `json:"id"`
+	Name    string `json:"name"`
+	Version string `json:"version"`
+}
+
+func (h *Host) Providers(ctx context.Context, capability string) ([]CapabilityProvider, error) {
+	var result []CapabilityProvider
+	err := h.request(ctx, "host.providers", map[string]any{"capability": capability, "contextId": invocationID(ctx)}, &result)
+	return result, err
+}
+
+func (h *Host) CallProvider(ctx context.Context, capability, providerID string, input any, result any) error {
+	return h.request(ctx, "host.call", map[string]any{"capability": capability, "providerId": providerID, "input": input, "contextId": invocationID(ctx)}, result)
+}
+
 func (h *Host) Secret(ctx context.Context, reference string) (string, error) {
 	var result string
 	e := h.request(ctx, "host.secret", map[string]string{"reference": reference, "contextId": invocationID(ctx)}, &result)
